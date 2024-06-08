@@ -1,12 +1,14 @@
 import asyncio
-from aiogram import Bot, Dispatcher, types
-from aiogram.filters.command import Command
-from dotenv import load_dotenv
-from os import getenv
 import logging
+
+from config import dp, bot
+from aiogram.filters.command import Command
+from aiogram import Router, types
+#
 from handlers.echo import echo_router
 from handlers.picture import picture_router
 from handlers.start import start_router
+#
 import os
 import random
 from aiogram.types import FSInputFile

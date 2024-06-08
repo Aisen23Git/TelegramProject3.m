@@ -1,7 +1,9 @@
 from aiogram import Router, types
 from aiogram.filters.command import Command
-
-
+from config import bot
+import os
+import random
+from aiogram.types import FSInputFile
 picture_router = Router()
 
 
@@ -13,4 +15,5 @@ async def picture_handler(message: types.Message):
     await bot.send_photo(
         chat_id=message.from_user.id,
         photo=photo,
+        caption ="Name of dish"
     )

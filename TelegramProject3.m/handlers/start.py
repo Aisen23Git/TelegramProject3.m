@@ -22,6 +22,12 @@ async def start_handler(message: types.Message):
             ],
             [
                 types.InlineKeyboardButton(text = "Пожертвования для нас !", callback_data = "donate")
+            ],
+            [
+                types.InlineKeyboardButton(text="Наши блюда !", callback_data="Плов \nОромо \nМанты \nШашлыки \nПицца ")
+            ]
+            [
+                types.InlineKeyboardButton(text="Отзывы!", callback_data="Отзывы")
             ]
         ]
     )
