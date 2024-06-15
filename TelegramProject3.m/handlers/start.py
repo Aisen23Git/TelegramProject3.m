@@ -21,9 +21,9 @@ async def start_handler(message: types.Message):
             [
                 types.InlineKeyboardButton(text = "Пожертвования для нас !", callback_data = "donate")
             ],
-            [
-                 types.InlineKeyboardButton(text="Menu", callback_data="dishes")
-            ],
+            # [
+            #      types.InlineKeyboardButton(text="Menu", callback_data="dishes")
+            # ],
             [
                 types.InlineKeyboardButton(text="Отзывы!", callback_data="feedback")
             ]
@@ -51,13 +51,13 @@ async def about_handler(callback:types.CallbackQuery):
     await callback.message.answer("Мы будем очень благодарны за вашу поддержку.")
 
 
-@start_router.callback_query(F.data == "dishes")
-async def about_handler(callback:types.CallbackQuery):
-    await callback.answer()# для того чтобы бот не завивасал.
-    await callback.message.answer("Плов \nОромо \nМанты \nШашлыки \nПицца.")
+# @start_router.callback_query(F.data == "dishes")
+# async def about_handler(callback:types.CallbackQuery):
+#     await callback.answer()# для того чтобы бот не завивасал.
+#     await callback.message.answer("Плов \nОромо \nМанты \nШашлыки \nПицца.")
 
 
-@start_router.callback_query(F.data == "feedback")
+@start_router.callback_query(F.data == "marks")
 async def about_handler(callback:types.CallbackQuery):
     await callback.answer()# для того чтобы бот не завивасал.
     await callback.message.answer("Нами все довольны )))!!!.")
