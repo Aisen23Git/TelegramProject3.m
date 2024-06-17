@@ -4,6 +4,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 
 
+
 survey_router = Router()
 
 class FeedBack(StatesGroup):
@@ -17,7 +18,7 @@ class FeedBack(StatesGroup):
 
 
 @survey_router.message(Command("feedback"))
-async def start_survey(message: types.Message, state: FSMContext):
+async def start_feedback(message: types.Message, state: FSMContext):
     await state.update_data(name = message.text)
     #Устанавливаем состояние
     await message.set_state(FeedBack.name)
@@ -62,7 +63,7 @@ async def process_commentary(message: types.Message, state: FSMContext):
 
 
 @survey_router.message(FeedBack.estimation)
-async def process_instagram(message: types.Message, state: FSMContext):
+async def process_estimation(message: types.Message, state: FSMContext):
     estimation = message.text
     estimation = int(estimation)
     if estimation <= 2:

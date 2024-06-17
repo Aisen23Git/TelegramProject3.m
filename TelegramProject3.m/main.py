@@ -1,20 +1,27 @@
 import asyncio
 import logging
+from aiogram import types
 
-from config import dp, bot
+from config import dp, bot, database
 # from aiogram.filters.command import Command
 # from aiogram import Router, types
 #
-from handlers.echo import echo_router
-from handlers.picture import picture_router
-from handlers.start import start_router
+from handlers import (
+    start_router,
+    order_router,
+    survey_router,
+    picture_router,
+    echo_router
+)
 #
 import os
 import random
 from aiogram.types import FSInputFile
 #
-from handlers.survey import survey_router
-from handlers.shop import order_router
+
+async def on_startup(bot):
+    await database.create_table()
+
 
 
 
@@ -28,6 +35,12 @@ from handlers.shop import order_router
 
 
 async def main():
+    await bot.set_my_commands([
+        types.BotCommand(command = "start", description = "Начало"),
+        types.BotCommand(command = "menu", description = "Наши блюда"),
+        types.BotCommand(command = "feedback", description = "Отзывы клиентов"),
+        types.BotCommand(command = "picture", description = "Отправка картинок"),
+    ])
     # Регистрируем роутер
     dp.include_router(picture_router)
     dp.include_router(start_router)
@@ -37,6 +50,7 @@ async def main():
     # в самом конце
     dp.include_router(echo_router)
     # запускаем бот
+    dp.startup.register(on_startup)
     await dp.start_polling(bot)
 
 

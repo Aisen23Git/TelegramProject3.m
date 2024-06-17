@@ -2,7 +2,7 @@ from aiogram import Router, F, types
 from aiogram.filters.command import Command
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
-
+from config import database
 
 survey_router = Router()
 
@@ -76,9 +76,15 @@ async def process_favorite_food(message: types.Message, state: FSMContext):
     # Сохраняем данные пользователя
     await state.update_data(favorite_food = message.text)
 
+    # Берем сохраненные данные
     data = await state.get_data()
     print("Data", data)
     # Save to DB
+    await database.execute("""
+        INSERT INTO survey_results (name, age, gender, favorite_food)
+        VALUES (?, ?, ?, ?)""",
+        data['name'], data['age'], data['gender'], data['favorite_food']
+    )
     # Чистим данные
     await state.clear()
     await message.answer("Спасибо за прохождение опроса?")
