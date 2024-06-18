@@ -20,7 +20,7 @@ class FoodSurvey(StatesGroup):
 @survey_router.message(Command("opros"))
 async def start_survey(message: types.Message, state: FSMContext):
     #Устанавливаем состояние
-    await message.set_state(FoodSurvey.name)
+    await state.set_state(FoodSurvey.name)
     await message.answer("Как вас зовут ?")
 
 

@@ -11,7 +11,7 @@ picture_router = Router()
 
 @picture_router.message(Command("picture"))
 async def picture_handler(message: types.Message):
-    files = os.listdir('/images')
+    files = os.listdir('images/')
     random1 = random.choice(files)
     photo=FSInputFile(random1)
     await bot.send_photo(

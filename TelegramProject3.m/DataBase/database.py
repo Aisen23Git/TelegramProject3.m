@@ -30,7 +30,7 @@ class Database:
         async with aiosqlite.connect(self.path) as conn:
             async with conn.cursor() as cur:
                 #Создание всех таблиц
-                await cur.execute(Queries.CREATE_SURVEY_TABLE)
+                await cur.execute(Queries.CREATE_FEEDBACK_TABLE)
                 #Здесь может быть создание других таблиц которые нам нужны
                 await  conn.commit()
 

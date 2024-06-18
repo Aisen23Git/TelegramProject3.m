@@ -9,9 +9,10 @@ from config import dp, bot, database
 from handlers import (
     start_router,
     order_router,
-    survey_router,
+    feedback_router,
     picture_router,
-    echo_router
+    echo_router,
+    survey_router
 )
 #
 import os
@@ -44,8 +45,9 @@ async def main():
     # Регистрируем роутер
     dp.include_router(picture_router)
     dp.include_router(start_router)
-    dp.include_router(survey_router)
+    dp.include_router(feedback_router)
     dp.include_router(order_router)
+    dp.include_router(survey_router)
 
     # в самом конце
     dp.include_router(echo_router)
