@@ -31,6 +31,10 @@ class Database:
             async with conn.cursor() as cur:
                 #Создание всех таблиц
                 await cur.execute(Queries.CREATE_FEEDBACK_TABLE)
+                await cur.execute(Queries.DROP_CATEGORIES_TABLE)
+                await cur.execute(Queries.DROP_ORDERS_TABLE)
+                await cur.execute(Queries.CREATE_CATEGORIES_TABLE)
+                await cur.execute(Queries.CREATE_ORDERS_TABLE)
                 #Здесь может быть создание других таблиц которые нам нужны
                 await  conn.commit()
 

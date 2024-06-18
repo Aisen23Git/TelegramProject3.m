@@ -1,3 +1,5 @@
+import sqlite3
+
 from aiogram import Router, F, types
 from aiogram.filters.command import Command
 
@@ -70,3 +72,18 @@ async def show_kymyz(message: types.Message):
 async def show_bozo(message: types.Message):
     kb = types.ReplyKeyboardRemove()
     await message.answer("У нас есть бозошки ! Сейчас принесут, прошу подождите.", reply_markup=kb)
+
+#===================================
+
+dishes = ("Шашлык","Манты","Плов ","Чай","Компот","Кымыз","Бозо","Пицца Пепперони с перцами чили и с сотрым кетчупом", "Пиво Живое")
+
+
+@order_router.message(F.text.to_lower().in_(dishes))
+async def show_dishes(message:types.Message):
+    kb = types.ReplyKeyboardRemove()
+    dishes = message.text # Одно из блюд
+    connection = sqlite3.connect("db.sqlite")
+    cursor = connection.cursor()
+    categories = cursor.fetchall("SELECT * FROM dishes WHERE genre_id = 1,2,3")
+    print(categories)
+    await message.answer("Блюда на сегодня", reply_markup = kb)
