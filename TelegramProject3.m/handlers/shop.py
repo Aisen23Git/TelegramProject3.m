@@ -2,34 +2,94 @@ import sqlite3
 
 from aiogram import Router, F, types
 from aiogram.filters.command import Command
-
+from config import database
 
 order_router = Router()
 
 
-@order_router.message(Command("menu"))
+# @order_router.message(Command("menu"))
+# async def show_menu(message: types.Message):
+#     kb = types.ReplyKeyboardMarkup(
+#         keyboard=[
+#             [
+#                 types.KeyboardButton(text="Шашлыки")
+#             ],
+#             [
+#                 types.KeyboardButton(text="Плов"),
+#                 types.KeyboardButton(text="Манты")
+#             ],
+#             [
+#                 types.KeyboardButton(text="Чай"),
+#                 types.KeyboardButton(text="Компот"),
+#                 types.KeyboardButton(text="Кымыз"),
+#                 types.KeyboardButton(text="Бозо")
+#
+#             ]
+#         ],
+#         resize_keyboard=True
+#     )
+#     await message.answer("Выберите блюдо которое вы хотите ниже: ", reply_markup=kb)
+
+
+@order_router.message(Command("drinks"))
 async def show_menu(message: types.Message):
     kb = types.ReplyKeyboardMarkup(
         keyboard=[
             [
-                types.KeyboardButton(text="Шашлыки")
-            ],
-            [
-                types.KeyboardButton(text="Плов"),
-                types.KeyboardButton(text="Манты")
-            ],
-            [
                 types.KeyboardButton(text="Чай"),
                 types.KeyboardButton(text="Компот"),
                 types.KeyboardButton(text="Кымыз"),
+                types.KeyboardButton(text="Бозо"),
+                types.KeyboardButton(text="Сок"),
+                types.KeyboardButton(text="Пиво"),
+                types.KeyboardButton(text="Кымыз"),
                 types.KeyboardButton(text="Бозо")
-
             ]
         ],
         resize_keyboard=True
     )
     await message.answer("Выберите блюдо которое вы хотите ниже: ", reply_markup=kb)
 
+@order_router.message(Command("food"))
+async def show_menu(message: types.Message):
+    kb = types.ReplyKeyboardMarkup(
+        keyboard=[
+            [
+                types.KeyboardButton(text="Шашлыки"),
+                types.KeyboardButton(text="Плов"),
+                types.KeyboardButton(text="Манты")
+            ],
+            [
+                types.KeyboardButton(text="Омлет"),
+                types.KeyboardButton(text="Пицца"),
+                types.KeyboardButton(text="Плов"),
+                types.KeyboardButton(text="Манты")
+            ]
+        ],
+        resize_keyboard=True
+    )
+    await message.answer("Выберите блюдо которое вы хотите ниже: ", reply_markup=kb)
+
+
+@order_router.message(Command("dessert"))
+async def show_menu(message: types.Message):
+    kb = types.ReplyKeyboardMarkup(
+        keyboard=[
+            [
+                types.KeyboardButton(text="Мороженое"),
+                types.KeyboardButton(text="Торт"),
+                types.KeyboardButton(text="Шоколад")
+            ]
+            # [
+            #     types.KeyboardButton(text="Омлет"),
+            #     types.KeyboardButton(text="Пицца"),
+            #     types.KeyboardButton(text="Плов"),
+            #     types.KeyboardButton(text="Манты")
+            # ]
+        ],
+        resize_keyboard=True
+    )
+    await message.answer("Выберите блюдо которое вы хотите ниже: ", reply_markup=kb)
 
 @order_router.message(F.text == "Шашлыки")
 async def show_shashliki(message: types.Message):
@@ -81,9 +141,15 @@ dishes = ("Шашлык","Манты","Плов ","Чай","Компот","Кы�
 @order_router.message(F.text.to_lower().in_(dishes))
 async def show_dishes(message:types.Message):
     kb = types.ReplyKeyboardRemove()
-    dishes = message.text # Одно из блюд
-    connection = sqlite3.connect("db.sqlite")
-    cursor = connection.cursor()
-    categories = cursor.fetchall("SELECT * FROM dishes WHERE genre_id = 1,2,3")
-    print(categories)
+    dishes = message.text.capitalize() # Одно из блюд
+    foods = await database.fetch("""
+        SELECT * FROM dishes JOIN dishes on food.dishes_id = dishes.id
+        WHERE dishes.name = ? 
+    """, (dishes,))
     await message.answer("Блюда на сегодня", reply_markup = kb)
+    # await database.fetch("SELECT * FROM feedback_results")
+    for food in dishes:
+        await message.answer_photo(
+            photo = food["image"],
+            caption = f'{food['name']} - {food['price']} сом'
+        )

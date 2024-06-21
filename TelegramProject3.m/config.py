@@ -10,3 +10,5 @@ bot = Bot(token=getenv("BOT_TOKEN"))
 dp = Dispatcher()
 
 database = Database("db.sqlite")
+
+database.fetch()
