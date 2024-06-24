@@ -14,11 +14,7 @@ from handlers import (
     echo_router,
     survey_router
 )
-#
-import os
-import random
-from aiogram.types import FSInputFile
-#
+
 
 async def on_startup(bot):
     await database.create_table()
