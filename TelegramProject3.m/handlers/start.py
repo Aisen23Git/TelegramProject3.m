@@ -21,14 +21,17 @@ async def start_handler(message: types.Message):
             [
                 types.InlineKeyboardButton(text="Пожертвования для нас !", callback_data="donate")
             ],
-            # [
-            #      types.InlineKeyboardButton(text="Menu", callback_data="dishes")
-            # ],
+            #0#
+            [
+                 types.InlineKeyboardButton(text="menu", callback_data="dishes")
+            ],
+            #0#
             [
                 types.InlineKeyboardButton(text="Отзывы!", callback_data="feedback")
             ],
             [
-                types.InlineKeyboardButton(text="Ссылки из сайта обьявлений: ", url="https://www.house.kg/snyat")
+                types.InlineKeyboardButton(text="Ссылки из сайта обьявлений: ", callback_data = "crawler")
+                # url="https://www.house.kg/snyat")
             ]
         ]
     )
@@ -53,19 +56,19 @@ async def about_handler(callback:types.CallbackQuery):
     await callback.answer()# для того чтобы бот не завивасал.
     await callback.message.answer("Мы будем очень благодарны за вашу поддержку.")
 
-
-# @start_router.callback_query(F.data == "dishes")
-# async def about_handler(callback:types.CallbackQuery):
-#     await callback.answer()# для того чтобы бот не завивасал.
-#     await callback.message.answer("Плов \nОромо \nМанты \nШашлыки \nПицца.")
-
+#0#
+@start_router.callback_query(F.data == "dishes")
+async def about_handler(callback:types.CallbackQuery):
+    await callback.answer()# для того чтобы бот не завивасал.
+    await callback.message.answer("Плов \nОромо \nМанты \nШашлыки \nПицца.")
+#0#
 
 @start_router.callback_query(F.data == "marks")
 async def about_handler(callback:types.CallbackQuery):
     await callback.answer()# для того чтобы бот не завивасал.
     await callback.message.answer("Нами все довольны )))!!!.")
 
-@start_router.callback_query(F.data == "Ссылки из сайта обьявлений: ")
+@start_router.callback_query(F.data == "Crawler")
 async def about_handler(callback:types.CallbackQuery):
     await callback.answer()# для того чтобы бот не завивасал.
-    await callback.message.answer("https://instagram.com/geeks.kg")
+    await callback.message.answer("https://instagram.com/geeks.kg") #https://www.house.kg/snyat

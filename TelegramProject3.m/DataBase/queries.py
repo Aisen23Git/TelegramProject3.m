@@ -11,7 +11,7 @@ class Queries:
     """
     DROP_FEEDBACK_TABLE = "DROP TABLE feedback"
     DROP_CATEGORIES_TABLE = "DROP TABLE categories"
-    DROP_OREDERS_TABLE = "DROP TABLE orders"
+    DROP_ORDERS_TABLE = "DROP TABLE orders"
 
     CREATE_CATEGORIES_TABLE= """
         CREATE TABLE IF NOT EXISTS categories ( 
@@ -36,8 +36,6 @@ class Queries:
         user_id INTEGER, 
         dish_id INTEGER, 
         review TEXT,
-        UNIQUE(user_id, dish_id),#Это унивкальный индекс пользователя и блюда для предотвращения дублирования кода
-        FOREIGN KEY (user_id) REFERENCES users(id),
         FOREIGN KEY (dish_id) REFERENCES dishes(id)
         )
     """
