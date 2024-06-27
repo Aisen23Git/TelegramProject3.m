@@ -70,17 +70,17 @@ async def process_phone_number(message: types.Message, state: FSMContext):
 
 @feedback_router.message(FeedBack.instagram)
 async def process_instagram(message: types.Message, state: FSMContext):
-    await state.update_data(instagram = message.text)
+    await state.update_data(instagram=message.text)
     # Устанавливаем зависимость
-    await message.set_state(FeedBack.commentary)
+    await state.set_state(FeedBack.commentary)
     await message.answer("Обязательно оставьте свой комментарий! Они будут учтены. ")
 
 
 @feedback_router.message(FeedBack.commentary)
 async def process_commentary(message: types.Message, state: FSMContext):
-    await state.update_data(commentary = message.text)
-    #Устанавливаем состояние
-    await message.set_state(FeedBack.rating)
+    await state.update_data(commentary=message.text)
+    # Устанавливаем состояние
+    await state.set_state(FeedBack.rating)
     await message.answer("Пожалуйста оцените наше заведение от 1 до 5. Спасибо !")
 
 

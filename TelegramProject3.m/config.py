@@ -6,8 +6,9 @@ from DataBase.database import Database
 
 load_dotenv()
 bot = Bot(token=getenv("BOT_TOKEN"))
+media = getenv("MEDIA")
 dp = Dispatcher()
 
-database = Database("db.sqlite")
+database: Database = Database("db.sqlite")
 
 database.fetch('query')

@@ -1,6 +1,8 @@
 from aiogram import Router, types, F
 from aiogram.filters.command import Command
 
+from config import bot
+from crawler.house_kg import HouseKG
 
 start_router = Router()
 
@@ -68,7 +70,14 @@ async def about_handler(callback:types.CallbackQuery):
     await callback.answer()# для того чтобы бот не завивасал.
     await callback.message.answer("Нами все довольны )))!!!.")
 
-@start_router.callback_query(F.data == "Crawler")
+
+@start_router.callback_query(F.data == "crawler")
 async def about_handler(callback:types.CallbackQuery):
     await callback.answer()# для того чтобы бот не завивасал.
-    await callback.message.answer("https://instagram.com/geeks.kg") #https://www.house.kg/snyat
+    parser = HouseKG()
+    links=parser.parse_data()
+    for link in links:
+        await bot.send_message(
+            chat_id=callback.from_user.id,
+            text = link,
+        )
