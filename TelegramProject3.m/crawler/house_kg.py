@@ -11,7 +11,7 @@
 #
 #
 # def get_page():
-#     response = httpx.get(MAIN_URL, timeout = 10)
+#     response = httpx.get(MAIN_URL, timeout=10)
 #     # print("Status code", response.status_code)
 #     return response.text
 #
@@ -24,8 +24,12 @@
 # def get_links(page):
 #
 #     selector = Selector(text=page)
-#     links = selector.css(".listing a::attr(href)").getall()
-#     return list(map(lambda x: "https://www.house.kg/snyat"))
+#     links = selector.css(".listing a::attr(href='/details/6894356667e8f3621d8e4-33126981')").getall()
+#     return list(map(lambda x: "https://www.house.kg/snyat"+ x, links))
+#     # links = selector.css(".listing a::attr(href)").getall()<a href="/details/4793335f896ed8e4d1f4-26541312">…</a>
+#     # links = selector.css(".listing a::attr(href)").getall()
+#     # # <a href="/details/6894356667e8f3621d8e4-33126981">…</a>
+#     # return list(map(lambda x: "https://www.house.kg/snyat"))
 #
 #
 # if __name__ == "__main__":
@@ -35,6 +39,11 @@
 #     # print(title)
 #     links = get_links(page)
 #     print(links)
+
+
+#-----------------------------------------------------------------------------------------
+#=========================================================================================
+
 
 import requests
 from parsel import Selector
@@ -47,16 +56,18 @@ class HouseKG:
         'Accept-Language': 'en-US,en;q=0.5',
         'Accept-Encoding': 'gzip, deflate, br, zstd'
     }
-    LINKXPATH='//p[@class="title"]/a/@href'
-    base='https://www.house.kg'
+    LINKXPATH = '//p[@class="title"]/a/@href'
+    base = 'https://www.house.kg'
+
     def parse_data(self):
-        text= requests.get(url=self.URL,headers=self.HEADERS).text
-        tree=Selector(text=text)
-        links=tree.xpath(self.LINKXPATH).extract()
-        linkss=[self.base+i for i in links]
+        text = requests.get(url=self.URL, headers=self.HEADERS).text
+        tree = Selector(text=text)
+        links = tree.xpath(self.LINKXPATH).extract()
+        linkss = [self.base + i for i in links]
         for i in linkss:
             print(i)
         return linkss
+
 
 if __name__ == '__main__':
     scrapper = HouseKG()

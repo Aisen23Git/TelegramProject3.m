@@ -1,6 +1,6 @@
 from aiogram import Router, F, types
 from aiogram.filters.command import Command
-from crawler.house_kg import get_page, get_links
+# from crawler.house_kg import get_page, get_links
 
 
 house_router = Router()
