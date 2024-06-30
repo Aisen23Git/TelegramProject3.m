@@ -50,6 +50,7 @@ async def show_menu(message: types.Message):
     )
     await message.answer("Выберите блюдо которое вы хотите ниже: ", reply_markup=kb)
 
+
 @order_router.message(Command("food"))
 async def show_menu(message: types.Message):
     kb = types.ReplyKeyboardMarkup(
@@ -90,6 +91,7 @@ async def show_menu(message: types.Message):
         resize_keyboard=True
     )
     await message.answer("Выберите блюдо которое вы хотите ниже: ", reply_markup=kb)
+
 
 @order_router.message(F.text == "Шашлыки")
 async def show_shashliki(message: types.Message):
@@ -143,12 +145,12 @@ async def show_dishes(message:types.Message):
     kb = types.ReplyKeyboardRemove()
     dishes = message.text.capitalize() # Одно из блюд
     foods = await database.fetch("""
-        SELECT * FROM dishes JOIN dishes on food.dishes_id = dishes.id
+        SELECT * FROM foods INNER JOIN dishes ON foods.dishes_id = dishes.id
         WHERE dishes.name = ? 
     """, (dishes,))
     await message.answer("Блюда на сегодня", reply_markup = kb)
     # await database.fetch("SELECT * FROM feedback_results")
-    for food in dishes:
+    for food in foods:
         await message.answer_photo(
             photo = food["image"],
             caption = f'{food['name']} - {food['price']} сом'

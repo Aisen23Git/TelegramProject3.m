@@ -36,9 +36,9 @@ class Database:
                 await cur.execute(Queries.CREATE_CATEGORIES_TABLE)
                 await cur.execute(Queries.CREATE_ORDERS_TABLE)
                 #Здесь может быть создание других таблиц которые нам нужны
-                await  conn.commit()
+                await conn.commit()
 
-    async def execute(self, query: str , params: tuple = ()):
+    async def execute(self, query: str, params: tuple = ()):
         async with aiosqlite.connect(self.path) as conn:
             await conn.execute(query, params)
             await conn.commit()
