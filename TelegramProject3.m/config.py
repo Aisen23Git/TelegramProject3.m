@@ -11,4 +11,4 @@ dp = Dispatcher()
 
 database: Database = Database("db.sqlite")
 
-database.fetch('query')
+# database.fetch('query')

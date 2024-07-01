@@ -22,13 +22,14 @@ class Queries:
 
     CREATE_DISHES_TABLE = """
         CREATE TABLE IF NOT EXISTS dishes (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        category_id INTEGER,
-        FOREING KEY (category_id) REFERENCES categories(id)
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            category_id INTEGER,
+            image TEXT,
+            price INTEGER,
+            FOREIGN KEY (category_id) REFERENCES categories(id)
         )
     """
-
 
     CREATE_ORDERS_TABLE = """
         CREATE TABLE IF NOT EXISTS reviews (
@@ -42,15 +43,20 @@ class Queries:
 
 
     # Вставка данных в таблицу категорий блюд
-    INSERT_INTO_CATEGORIES='''
-        INSERT INTO categories(name) VALUES =('Завтраки'), ('Обеды'), ('Ужины');
+    INSERT_INTO_CATEGORIES = '''
+        INSERT INTO categories(name) VALUES 
+        ('Завтраки'),
+        ('Обеды'),
+        ('Ужины');
     '''
+
     # Вставка данных в таблицу блюд
-    INSERT_INTO_DISHES='''
-    INSERT INTO dishes(name, category_id) VALUES
-    ('Омлет', 'Компот', 1),
-    ('ПЛОВ', 2),
-    ('Манты', 2),
-    ('Бозо', 1);
-    ('Шашлыки из баранины', 3)
-    ('Пицца Пепперони с перцами чили и с сотрым кетчупом', 'Пиво Живое' ,3)'''
+    INSERT_INTO_DISHES = '''
+        INSERT INTO dishes(name, category_id,image,price) VALUES
+        ('Омлет', 1,'images/Пицца.jpg',100),
+        ('Плов', 2,'images/Плов.jpg', 200),
+        ('Манты', 2,'images/Манты.jpg', 200),
+        ('Бозо', 1,'images/Бозо.jpg', 50),
+        ('Шашлыки', 3,'images/Шашлыки.jpg', 220),
+        ('Пицца', 3, 'images/Пицца.jpg', 300);
+    '''

@@ -6,13 +6,16 @@ from config import dp, bot, database
 # from aiogram.filters.command import Command
 # from aiogram import Router, types
 #
+
+
 from handlers import (
     start_router,
     order_router,
     feedback_router,
     picture_router,
     echo_router,
-    survey_router
+    survey_router,
+    house_router
 )
 
 
@@ -44,6 +47,7 @@ async def main():
     dp.include_router(feedback_router)
     dp.include_router(order_router)
     dp.include_router(survey_router)
+    dp.include_router(house_router)
 
     # в самом конце
     dp.include_router(echo_router)

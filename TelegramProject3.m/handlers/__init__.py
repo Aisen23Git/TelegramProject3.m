@@ -4,3 +4,4 @@ from .picture import picture_router
 from .feedbak import feedback_router
 from .echo import echo_router
 from .survey import survey_router
+from .house__kg import house_router

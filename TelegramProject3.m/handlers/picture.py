@@ -15,7 +15,7 @@ async def picture_handler(message: types.Message):
     files = os.listdir(media)
     random1 = random.choice(files)
     print(media + random1)
-    photo=FSInputFile(random1)
+    photo=FSInputFile(media+random1)
     await bot.send_photo(
         chat_id=message.from_user.id,
         photo=photo,

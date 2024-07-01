@@ -35,6 +35,9 @@ class Database:
                 #await cur.execute(Queries.DROP_ORDERS_TABLE)#
                 await cur.execute(Queries.CREATE_CATEGORIES_TABLE)
                 await cur.execute(Queries.CREATE_ORDERS_TABLE)
+                await cur.execute(Queries.CREATE_DISHES_TABLE)
+                # await cur.execute(Queries.INSERT_INTO_DISHES)
+                # await cur.execute(Queries.INSERT_INTO_CATEGORIES)
                 #Здесь может быть создание других таблиц которые нам нужны
                 await conn.commit()
 
